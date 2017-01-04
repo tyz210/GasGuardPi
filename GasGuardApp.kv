@@ -1,0 +1,65 @@
+<SensorLabel@Label>:
+    font_name: 'res/fonts/Hack/build/ttf/Hack-BoldItalic.ttf'
+
+<SensorValueLabel@Label>:
+    font_name: 'res/fonts/Hack/build/ttf/Hack-Regular.ttf'
+
+<SensorValue@Label>:
+    font_name: 'res/fonts/Hack/build/ttf/Hack-Bold.ttf'
+
+<SensorItem@BoxLayout>:
+    label: ''
+    value: ''
+    BoxLayout:
+        orientation: 'horizontal'
+        SensorValueLabel:
+            markup: True
+            font_size: 24
+            text: root.label
+        SensorValue:
+            font_size: 24
+            text: root.value
+
+<Sensors@BoxLayout>:
+    orientation: 'vertical'
+
+    SensorItem:
+        label: 'Temperature:'
+        value: '10.00%'
+
+    SensorItem:
+        label: 'Humidity:'
+        value: '100.00%'
+
+    SensorItem:
+        label: 'Carbon monoxide (CO)'
+        value: '10.00%'
+
+    SensorItem:
+        label: 'Carbon dioxide (CO[sub]2[/sub])'
+        value: '100.00%'
+
+    SensorItem:
+        label: 'Ethanol (C[sub]2[/sub]H[sub]6[/sub]O)'
+        value: '10.00%'
+
+    SensorItem:
+        label: 'Ammonium (NH[sub]4[/sub])'
+        value: '100.00%'
+
+    SensorItem:
+        label: 'Toluene (C[sub]7[/sub]H[sub]8[/sub])'
+        value: '10.00%'
+
+    SensorItem:
+        label: 'Acetone (C[sub]3[/sub]H[sub]6[/sub]O)'
+        value: '100.00%'
+
+
+<MainView>:
+    orientation: 'vertical'
+
+    Sensors:
+
+
+
