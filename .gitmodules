@@ -1,0 +1,3 @@
+[submodule "res/fonts/Hack"]
+	path = res/fonts/Hack
+	url = https://github.com/chrissimpkins/Hack
