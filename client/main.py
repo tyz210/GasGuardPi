@@ -16,6 +16,7 @@ class MainView(BoxLayout):
 
 
 class GasGuardApp(App):
+
     def build(self):
         Window.clearcolor = (0.1176, 0.0392, 0.1176, 1)
         self.title = 'GasGuard'
