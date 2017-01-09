@@ -2,10 +2,12 @@
 #include <MQ135.h>
 
 namespace {
+const auto id = 1;
 const uint8_t DHT_PIN = 6;
 const auto DHT_TYPE = DHT11; // TODO: Update sensor to DHT21
 
-const uint8_t MQ135_PIN = A2;
+const uint8_t MQ135_PIN = A3;
+
 
 const DHT_Unified dht(DHT_PIN, DHT_TYPE);
 const MQ135 mq135(MQ135_PIN);
@@ -45,23 +47,26 @@ void read_data_from_sensor()
 void print_data_to_serial_port()
 {
   Serial.print("{");
-  Serial.print("\"co\": ");
-  Serial.print(String(mq135_co));
-  Serial.print(", \"co2\": ");
-  Serial.print(String(mq135_co2));
-  Serial.print(", \"ethanol\": ");
-  Serial.print(String(mq135_ethanol));
-  Serial.print(", \"NH4\": ");
-  Serial.print(String(mq135_nh4));
-  Serial.print(", \"toluene\": ");
-  Serial.print(String(mq135_toluene));
-  Serial.print(", \"acetone\": ");
-  Serial.print(String(mq135_acetone));
-
+  Serial.print("id: ");
+  Serial.print(id);
   Serial.print(", \"temperature\": ");
-  Serial.print(String(dht_temperature_sensor_value));
+  Serial.print(dht_temperature_sensor_value);
   Serial.print(", \"humidity\": ");
-  Serial.print(String(dht_humidity_sensor_value));
+  Serial.print(dht_humidity_sensor_value);
+  
+  Serial.print(", \"co\": ");
+  Serial.print(mq135_co);
+  Serial.print(", \"co2\": ");
+  Serial.print(mq135_co2);
+  Serial.print(", \"ethanol\": ");
+  Serial.print(mq135_ethanol);
+  Serial.print(", \"NH4\": ");
+  Serial.print(mq135_nh4);
+  Serial.print(", \"toluene\": ");
+  Serial.print(mq135_toluene);
+  Serial.print(", \"acetone\": ");
+  Serial.print(mq135_acetone);
+  
   Serial.print("}\n");
 }
 
@@ -74,7 +79,7 @@ void setup() {
 
 void loop() {
   read_data_from_sensor();
-
+  
   print_data_to_serial_port();
 
   delay (1000);
