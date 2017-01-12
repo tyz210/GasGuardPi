@@ -4,12 +4,12 @@
 namespace {
 const auto id = 1;
 const uint8_t DHT_PIN = 6;
-const auto DHT_TYPE = DHT11; // TODO: Update sensor to DHT21
-
+ 
 const uint8_t MQ135_PIN = A3;
 
 
-const DHT_Unified dht(DHT_PIN, DHT_TYPE);
+const DHT_Unified dht(DHT_PIN, DHT22);
+
 const MQ135 mq135(MQ135_PIN);
 
 float mq135_resistance_value = 0.0;
@@ -21,8 +21,9 @@ float mq135_nh4 = 0.0;
 float mq135_toluene = 0.0;
 float mq135_acetone = 0.0;
 
-uint8_t dht_temperature_sensor_value = 0;
-uint8_t dht_humidity_sensor_value = 0;
+float dht_temperature_sensor_value = 0.0;
+float dht_humidity_sensor_value = 0.0;
+
 
 void read_data_from_sensor()
 {
@@ -36,10 +37,9 @@ void read_data_from_sensor()
   mq135_acetone = mq135.getAcetone(mq135_resistance_value); //acetone ppm
 
   sensors_event_t event;
+  
   dht.temperature().getEvent(&event);
-
   dht_temperature_sensor_value = event.temperature;
-
   dht.humidity().getEvent(&event);
   dht_humidity_sensor_value = event.relative_humidity;
 }
