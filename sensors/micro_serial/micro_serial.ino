@@ -1,25 +1,22 @@
 #include <DHT_U.h>
-#include <MQ135.h>
 
 namespace {
-const auto id = 1;
-const uint8_t DHT_PIN = 6;
- 
-const uint8_t MQ135_PIN = A3;
+const auto ID = 1;
+
+const uint8_t DHT_PIN = 2; 
+
+const uint8_t MQ135_PIN = A0;
+const uint8_t MQ9_PIN = A2;
+const uint8_t MQ7_PIN = A3;
 
 
-const DHT_Unified dht(DHT_PIN, DHT22);
+const DHT_Unified DTH(DHT_PIN, DHT22);
 
-const MQ135 mq135(MQ135_PIN);
+int mq135_resistance_value = 0;
+int mq9_resistance_value = 0;
+int mq7_resistance_value = 0;
 
-float mq135_resistance_value = 0.0;
 
-float mq135_co = 0.0;
-float mq135_co2 = 0.0;
-float mq135_ethanol = 0.0;
-float mq135_nh4 = 0.0;
-float mq135_toluene = 0.0;
-float mq135_acetone = 0.0;
 
 float dht_temperature_sensor_value = 0.0;
 float dht_humidity_sensor_value = 0.0;
@@ -27,20 +24,16 @@ float dht_humidity_sensor_value = 0.0;
 
 void read_data_from_sensor()
 {
-  mq135_resistance_value = mq135.getResistance();
-
-  mq135_co = mq135.getCO(mq135_resistance_value);//co ppm
-  mq135_co2 = mq135.getCO2(mq135_resistance_value);//co2 ppm
-  mq135_ethanol = mq135.getEthanol(mq135_resistance_value);//ethanol ppm
-  mq135_nh4 = mq135.getNH4(mq135_resistance_value); //NH4 ppm
-  mq135_toluene = mq135.getToluene(mq135_resistance_value); //toluene ppm
-  mq135_acetone = mq135.getAcetone(mq135_resistance_value); //acetone ppm
+  mq135_resistance_value = analogRead(MQ135_PIN);
+  mq9_resistance_value = analogRead(MQ9_PIN);
+  mq7_resistance_value = analogRead(MQ7_PIN);
 
   sensors_event_t event;
   
-  dht.temperature().getEvent(&event);
+  DTH.temperature().getEvent(&event);
   dht_temperature_sensor_value = event.temperature;
-  dht.humidity().getEvent(&event);
+  
+  DTH.humidity().getEvent(&event);
   dht_humidity_sensor_value = event.relative_humidity;
 }
 
@@ -48,25 +41,18 @@ void print_data_to_serial_port()
 {
   Serial.print("{");
   Serial.print("id: ");
-  Serial.print(id);
+  Serial.print(ID);
   Serial.print(", \"temperature\": ");
   Serial.print(dht_temperature_sensor_value);
   Serial.print(", \"humidity\": ");
   Serial.print(dht_humidity_sensor_value);
   
-  Serial.print(", \"co\": ");
-  Serial.print(mq135_co);
-  Serial.print(", \"co2\": ");
-  Serial.print(mq135_co2);
-  Serial.print(", \"ethanol\": ");
-  Serial.print(mq135_ethanol);
-  Serial.print(", \"NH4\": ");
-  Serial.print(mq135_nh4);
-  Serial.print(", \"toluene\": ");
-  Serial.print(mq135_toluene);
-  Serial.print(", \"acetone\": ");
-  Serial.print(mq135_acetone);
-  
+  Serial.print(", \"mq135\": ");
+  Serial.print(mq135_resistance_value);
+  Serial.print(", \"mq9\": ");
+  Serial.print(mq9_resistance_value);
+  Serial.print(", \"mq7\": ");
+  Serial.print(mq7_resistance_value);
   Serial.print("}\n");
 }
 
@@ -74,7 +60,7 @@ void print_data_to_serial_port()
 
 void setup() {
   Serial.begin(9600);
-  dht.begin();
+  DTH.begin();
 }
 
 void loop() {
