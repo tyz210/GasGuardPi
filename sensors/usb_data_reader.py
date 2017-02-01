@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import serial
 
 SERIAL_PORT = 9600
@@ -21,6 +24,7 @@ def main():
     except:
         ser.close()
         print('\nClose read session.')
+
 
 if __name__ == "__main__":
     main()

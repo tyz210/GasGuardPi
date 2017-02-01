@@ -16,8 +16,6 @@ int mq135_resistance_value = 0;
 int mq9_resistance_value = 0;
 int mq7_resistance_value = 0;
 
-
-
 float dht_temperature_sensor_value = 0.0;
 float dht_humidity_sensor_value = 0.0;
 
