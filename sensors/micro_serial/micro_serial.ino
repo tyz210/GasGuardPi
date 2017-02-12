@@ -38,9 +38,10 @@ void read_data_from_sensor()
 void print_data_to_serial_port()
 {
   Serial.print("{");
-  Serial.print("id: ");
+  Serial.print("\"id\": ");
   Serial.print(ID);
-  Serial.print(", \"temperature\": ");
+  Serial.print(", \"data\": {");
+  Serial.print("\"temperature\": ");
   Serial.print(dht_temperature_sensor_value);
   Serial.print(", \"humidity\": ");
   Serial.print(dht_humidity_sensor_value);
@@ -51,7 +52,7 @@ void print_data_to_serial_port()
   Serial.print(mq9_resistance_value);
   Serial.print(", \"mq7\": ");
   Serial.print(mq7_resistance_value);
-  Serial.print("}\n");
+  Serial.print("}}\n");
 }
 
 } // namespace
